@@ -2,7 +2,8 @@
 /*
 Класс для работы с API коротких номеров AvisoSMS.
 Сделал BrokenBrake.biz, отзывы и предложения
-оставляйте здесь - 
+оставляйте здесь - http://brokenbrake.biz/2010/11/11/classAvisoPrefixes.php
+или в репозитории - https://github.com/BrokenBrake/classAvisoPrefixes
 
 	P.S. Это мой первый класс! :)
 
@@ -62,7 +63,7 @@ numbersAroundCost($sum [, $coverage])
 	формат массива аналогичен allNumbers + добавляется параметр 
 	diff - отличие цены от заданной суммы. 
 	Вторым параметром также может передаваться охват (ru, ua, ru-ua).
-	
+
 profitFromNumber($number)
 	Средняя сумма выплаты вебмастеру (в рублях).
 
@@ -132,7 +133,7 @@ class AvisoPrefixes
 			$data['time'] = time() - ($this->cacheLive + 1); // просрочка
 			return $this->writeCache($data);
 		}
-	} // useCache
+	} // useCache()
 
 
 
@@ -184,8 +185,8 @@ class AvisoPrefixes
 					create_function(
 						'&$one', 
 						"\$one['diff'] = round(abs(\$one['costAverage'] - $sum));"
-										) // create_function
-								); // array_walk
+					) // create_function
+				); // array_walk
 				uasort($data, create_function('$one, $two', 'return $one["diff"] - $two["diff"];'));
 				$data = array_slice($data, 0, $this->limit, True);
 			}
@@ -231,7 +232,7 @@ class AvisoPrefixes
 		{
 			return False;
 		}
-	}
+	} // costForNumber()
 
 
 
@@ -248,11 +249,11 @@ class AvisoPrefixes
 
 			$kopFn = create_function('$num', 
 				'
-					$num = (INT)$num;
-					if ($num)
-						return " $num"." коп.";
-					else return \'\';
-				'); // лямбдочка :) По-моему, довольно уродливо... но прикольно
+				$num = (INT)$num;
+			if ($num)
+				return " $num"." коп.";
+			else return \'\';
+			'); // лямбдочка :) По-моему, довольно уродливо... но прикольно
 
 			$minKop = $kopFn($min[1]);
 			$maxKop = $kopFn($max[1]);
@@ -295,7 +296,7 @@ class AvisoPrefixes
 		{
 			return $this->error(7);
 		}
-	}
+	} // checkSignal()
 
 
 
